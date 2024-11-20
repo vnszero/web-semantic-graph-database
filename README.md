@@ -171,7 +171,7 @@ npm install neo4j-driver csv-parser fs
      ]
      ```
 
-<!-- ## Recommended Queries
+## Recommended Queries
 
 Here are some example Cypher queries you can use to query the database:
 
@@ -197,7 +197,7 @@ MATCH (pe:PublicEntity)-[:HAS_LEGAL_TENDER]->(c:Contract)-[:ASSOCIATED_WITH]->(o
 WHERE oc.name CONTAINS 'Fresenius Kabi Pharma Portugal, Lda.'
 RETURN pe, c, oc
 LIMIT 200;
-``` -->
+```
 
 ## Adding New Data to the Graph Database
 
