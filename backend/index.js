@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const neo4j = require('neo4j-driver');
 const express = require('express');
+const cors = require('cors');
 const startApi = require('./api');
 const { importAllCsvFiles } = require('./importCsv');
 
@@ -15,7 +16,8 @@ const driver = neo4j.driver(
 const app = express();
 const port = 3000;
 
-// Middleware to parse JSON bodies
+// Middleware
+app.use(cors());
 app.use(express.json());
 
 // Start API routes by passing the Express app and Neo4j driver
