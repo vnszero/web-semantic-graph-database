@@ -117,7 +117,7 @@ LIMIT 200;
 ### Query by Contract
 ```cypher
 MATCH (pe:PublicEntity)-[:HAS_LEGAL_TENDER]->(c:Contract)-[:ASSOCIATED_WITH]->(oc:OtherCompany)
-WHERE c.cpvDesignation CONTAINS 'serviço'
+WHERE c.cpvDesignation CONTAINS 'Produtos'
 RETURN pe, c, oc
 LIMIT 200;
 ```
