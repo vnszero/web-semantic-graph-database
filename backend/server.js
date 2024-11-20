@@ -28,5 +28,7 @@ app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 
   // Only import CSV files if needed (e.g., skip if data is already in Neo4j)
-  // importAllCsvFiles(driver).catch(console.error);
+  /////////////////// Comment line 32 after the first run ///////////////////
+  importAllCsvFiles(driver).catch(console.error);
+  /////////////////// Comment line 32 after the first run ///////////////////
 });

@@ -206,5 +206,9 @@ To add new data to the Neo4j graph database, follow these steps:
 ### 1. Prepare the CSV File
 Place your CSV file containing the data in the `contracts/` directory of the project. Ensure that the CSV file is properly formatted.
 
-### 2. Uncomment the Import Function in `index.js`
-In the `index.js` file, you will find a line that calls the `importAllCsvFiles(driver)` function. To enable the import of data, uncomment this line by removing the `//` at the beginning of the line.
+### 2. Comment the Import Function in `server.js` after ther first run
+In the `server.js` file, you will find a line that calls the `importAllCsvFiles(driver)` function. To enable the import of data, uncomment this line by removing the `//` at the beginning of the line.
+
+### 3. To delete volumes in case of duplicated values
+docker volume rm web-semantic-graph-database_neo4j_data
+docker volume rm web-semantic-graph-database_neo4j_logs
