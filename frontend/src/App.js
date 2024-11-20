@@ -43,7 +43,7 @@ function CompaniesTable() {
             <div align="center">
                 <button onClick={() => { 
                     setQueryType(!queryType) 
-                    setCompanies([])
+                    // setCompanies([])
                     setSelectedCompany(null)
                     }}>
                     {queryType === true

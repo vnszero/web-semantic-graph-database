@@ -1,15 +1,13 @@
-# Web Semantic Graph Database
+# Public Procurement Analysis App
 
-This is a JavaScript project that uses the Neo4j graph database with the Bolt driver.
+This application analyzes public procurement data for pharmaceutical products, displaying insights into the top contracted companies and their relationships with public entities.
 
-## Installation
+## Features
 
-### Required Libraries
-To install the necessary libraries for the project, run the following command:
+- Display top contracted companies by public entities count or contracts count.
+- View detailed public entity relationships for a selected company.
 
-```bash
-npm install neo4j-driver csv-parser fs
-```
+## Setup Instructions
 
 ## Docker Commands to Run Neo4j Server
 
@@ -78,31 +76,102 @@ To test the CRUD functionality, run:
 node crudModel.js
 ```
 
-### Project Index File
-To run the index file for the project, use:
+### Required Backend Libraries
+
+To install the required libraries for the backend, run:
 
 ```bash
-node index.js
+npm install neo4j-driver csv-parser fs
 ```
+
+### 1. Backend Setup
+1. Clone the repository.
+2. Navigate to the `backend` directory:
+   ```bash
+   cd backend
+   ```
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
+4. Start the backend server:
+   ```bash
+   node server.js
+   ```
+   The backend server will run on `http://localhost:3000`.
+
+---
+
+### 2. Frontend Setup
+1. Open a new terminal and navigate to the `frontend` directory:
+   ```bash
+   cd frontend/src
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the React app:
+   ```bash
+   npm start
+   ```
+   The frontend will be accessible at `http://localhost:5500`.
+
+---
+
+## Running the App
+1. Ensure the Neo4j database is running and accessible.
+2. Start both the backend and frontend as described above.
+3. Open your browser and navigate to `http://localhost:5500` to use the application.
+
+
 
 ## API Endpoints
 
-### Query Endpoint
-The project exposes an API endpoint to execute Cypher queries on the Neo4j database:
+### 1. **GET /api/rank-contracted-companies-by-public-entities-count**
+   - **Description**: Retrieves the top 10 contracted companies ranked by the number of public entities that issued contracts for pharmaceutical products.
+   - **Response**: 
+     ```json
+     [
+         {
+             "otherCompanyName": "Company A",
+             "publicEntitiesCount": 5,
+             "contractsCount": 15
+         },
+         ...
+     ]
+     ```
 
-**Endpoint:**  
-[http://localhost:3000/api/query](http://localhost:3000/api/query)
+### 2. **GET /api/rank-contracted-companies-by-contracts-count**
+   - **Description**: Retrieves the top 10 contracted companies ranked by the number of contracts issued for pharmaceutical products.
+   - **Response**:
+     ```json
+     [
+         {
+             "otherCompanyName": "Company B",
+             "publicEntitiesCount": 3,
+             "contractsCount": 20
+         },
+         ...
+     ]
+     ```
 
-The request method should be `POST`, and the body should include the query in JSON format.
+### 3. **GET /api/company-public-entities**
+   - **Description**: Fetches all public entities associated with a specific company along with their contract counts.
+   - **Query Parameters**:
+     - `companyName` (string): The name of the company to query.
+   - **Response**:
+     ```json
+     [
+         {
+             "publicEntityName": "Entity X",
+             "contractCount": 10
+         },
+         ...
+     ]
+     ```
 
-#### Example Request Body:
-```json
-{
-    "query": "MATCH (n) RETURN n LIMIT 5"
-}
-```
-
-## Recommended Queries
+<!-- ## Recommended Queries
 
 Here are some example Cypher queries you can use to query the database:
 
@@ -128,7 +197,7 @@ MATCH (pe:PublicEntity)-[:HAS_LEGAL_TENDER]->(c:Contract)-[:ASSOCIATED_WITH]->(o
 WHERE oc.name CONTAINS 'Fresenius Kabi Pharma Portugal, Lda.'
 RETURN pe, c, oc
 LIMIT 200;
-```
+``` -->
 
 ## Adding New Data to the Graph Database
 
