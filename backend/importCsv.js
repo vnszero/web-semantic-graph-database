@@ -8,6 +8,7 @@ async function importCsvFile(filePath, driver) {
   return new Promise((resolve, reject) => {
     const nodes = [];
     const session = driver.session(); // Create a new session for each file import
+    let counter = 0; // Counter to track progress
 
     fs.createReadStream(filePath)
       .pipe(csvParser({ separator: ';' }))
@@ -35,19 +36,35 @@ async function importCsvFile(filePath, driver) {
             };
 
             if (!params.publicEntity || !params.otherCompany) {
-              console.warn(`incomplete data drop: ${JSON.stringify(row)}`);
+              console.warn(`Incomplete data skipped: ${JSON.stringify(row)}`);
+              continue;
+            }
+
+            // Extract the identifier from parentheses for matching
+            const publicEntityId = params.publicEntity.match(/\((\d+)\)/)?.[1] || null;
+            const otherCompanyId = params.otherCompany.match(/\((\d+)\)/)?.[1] || null;
+
+            if (!publicEntityId || !otherCompanyId) {
+              console.warn(`Could not extract unique ID from: ${JSON.stringify(row)}`);
               continue;
             }
 
             await session.writeTransaction(async (tx) => {
+              // Merge the public entity using the extracted identifier, keeping the full name as a property
               await tx.run(
-                `MERGE (pe:PublicEntity {name: $publicEntity}) RETURN pe`,
-                { publicEntity: params.publicEntity }
+                `MERGE (pe:PublicEntity {id: $publicEntityId})
+                 ON CREATE SET pe.name = $publicEntity`,
+                { publicEntityId, publicEntity: params.publicEntity }
               );
+
+              // Merge the other company using the extracted identifier, keeping the full name as a property
               await tx.run(
-                `MERGE (oc:OtherCompany {name: $otherCompany}) RETURN oc`,
-                { otherCompany: params.otherCompany }
+                `MERGE (oc:OtherCompany {id: $otherCompanyId})
+                 ON CREATE SET oc.name = $otherCompany`,
+                { otherCompanyId, otherCompany: params.otherCompany }
               );
+
+              // Merge the contract
               const contractResult = await tx.run(
                 `MERGE (c:Contract {
                   id: apoc.create.uuid(),
@@ -72,19 +89,29 @@ async function importCsvFile(filePath, driver) {
               const contractNode = contractResult.records[0]?.get('c');
 
               if (contractNode) {
+                // Link the public entity to the contract
                 await tx.run(
-                  `MATCH (pe:PublicEntity {name: $publicEntity}), (c:Contract {id: $contractId})
+                  `MATCH (pe:PublicEntity {id: $publicEntityId}), (c:Contract {id: $contractId})
                    MERGE (pe)-[:HAS_LEGAL_TENDER]->(c)`,
-                  { publicEntity: params.publicEntity, contractId: contractNode.properties.id }
+                  { publicEntityId, contractId: contractNode.properties.id }
                 );
+
+                // Link the contract to the other company
                 await tx.run(
-                  `MATCH (c:Contract {id: $contractId}), (oc:OtherCompany {name: $otherCompany})
+                  `MATCH (c:Contract {id: $contractId}), (oc:OtherCompany {id: $otherCompanyId})
                    MERGE (c)-[:ASSOCIATED_WITH]->(oc)`,
-                  { contractId: contractNode.properties.id, otherCompany: params.otherCompany }
+                  { contractId: contractNode.properties.id, otherCompanyId }
                 );
               }
             });
+
+            // Increment the counter and display progress
+            counter++;
+            if (counter % 250 === 0) {
+              console.log(`${counter} records processed...`);
+            }
           }
+
           console.log(`Successful import for file: ${filePath}`);
           resolve();
         } catch (error) {
