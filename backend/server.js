@@ -29,6 +29,6 @@ app.listen(port, () => {
 
   // Only import CSV files if needed (e.g., skip if data is already in Neo4j)
   /////////////////// Comment line 32 after the first run ///////////////////
-  importAllCsvFiles(driver).catch(console.error);
+  // importAllCsvFiles(driver).catch(console.error);
   /////////////////// Comment line 32 after the first run ///////////////////
 });
