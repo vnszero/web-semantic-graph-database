@@ -9,8 +9,8 @@ const Header = () => {
             <nav>
                 <ul>
                     <li><Link to="/by-cpv-designation">By CPV Designation</Link></li>
-                    <li><Link to="/by-company">By Company</Link></li>
-                    <li><Link to="/by-public-entity">By Public Entity</Link></li>
+                    {/* <li><Link to="/by-company">By Company</Link></li>
+                    <li><Link to="/by-public-entity">By Public Entity</Link></li> */}
                     <li><Link to="/by-distribution-contracts">By Distribution of Contracts</Link></li>
                 </ul>
             </nav>

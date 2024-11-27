@@ -18,10 +18,10 @@ router.get('/rank-contracted-companies-by-public-entities-count', async (req, re
 
     const query = `
         MATCH (pe:PublicEntity)-[:HAS_LEGAL_TENDER]->(c:Contract {cpvDesignation: $cpv})-[:ASSOCIATED_WITH]->(oc:OtherCompany)
-        WITH oc, COUNT(DISTINCT pe) AS publicEntitiesCount, COUNT(c) AS contractsCount
-        ORDER BY publicEntitiesCount DESC, contractsCount DESC
+        WITH oc, COUNT(DISTINCT pe) AS publicEntitiesCount, COUNT(c) AS contractsCount, SUM(c.cpvValue) AS totalCpvValue
+        ORDER BY totalCpvValue DESC, contractsCount DESC, publicEntitiesCount DESC
         LIMIT 10
-        RETURN oc.name AS otherCompanyName, publicEntitiesCount, contractsCount
+        RETURN oc.name AS otherCompanyName, apoc.number.format(totalCpvValue, '#,##0.00') AS totalCpvValueFormatted, contractsCount, publicEntitiesCount
     `;
 
     const session = driver.session();
@@ -29,8 +29,9 @@ router.get('/rank-contracted-companies-by-public-entities-count', async (req, re
         const result = await session.run(query, { cpv });
         const responseData = result.records.map(record => ({
             otherCompanyName: record.get('otherCompanyName'),
-            publicEntitiesCount: neo4jIntegerToNumber(record.get('publicEntitiesCount')),
+            totalCpvValueFormatted: record.get('totalCpvValueFormatted'),
             contractsCount: neo4jIntegerToNumber(record.get('contractsCount')),
+            publicEntitiesCount: neo4jIntegerToNumber(record.get('publicEntitiesCount')),
         }));
         res.json(responseData);
     } catch (error) {

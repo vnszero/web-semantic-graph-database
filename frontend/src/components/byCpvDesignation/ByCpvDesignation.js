@@ -47,8 +47,9 @@ const ByCpvDesignation = () => {
                     <thead>
                         <tr>
                             <th>Company Name</th>
-                            <th>Public Entities Count</th>
+                            <th>Total Cpv Value</th>
                             <th>Contracts Count</th>
+                            <th>Public Entities Count</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -56,13 +57,14 @@ const ByCpvDesignation = () => {
                             companies.map((company, index) => (
                                 <tr key={index}>
                                     <td>{company.otherCompanyName}</td>
-                                    <td>{company.publicEntitiesCount}</td>
+                                    <td>{company.totalCpvValueFormatted}</td>
                                     <td>{company.contractsCount}</td>
+                                    <td>{company.publicEntitiesCount}</td>
                                 </tr>
                             ))
                         ) : (
                             <tr>
-                                <td colSpan="3">No companies found.</td>
+                                <td colSpan="4">No companies found.</td>
                             </tr>
                         )}
 
