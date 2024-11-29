@@ -49,6 +49,19 @@ async function importCsvFile(filePath, driver) {
               continue;
             }
 
+            // Extract number from executionPeriod (e.g., "365 dias")
+            const executionPeriodNumber = parseInt(params.executionPeriod.match(/\d+/)?.[0] || '0', 10);
+
+            if (executionPeriodNumber > 0) {
+                // Normalize the cpvValue by executionPeriod
+                params['cpvValueNormalized'] = parseFloat(
+                  (params['cpvValue'] / executionPeriodNumber).toFixed(2)
+                );
+            } else {
+                console.warn(`Invalid execution period for row: ${JSON.stringify(row)}`);
+                params['cpvValueNormalized'] = params['cpvValue']; // it means that execution period does not matter
+            }
+
             await session.writeTransaction(async (tx) => {
               // Merge the public entity using the extracted identifier, keeping the full name as a property
               await tx.run(
@@ -75,6 +88,7 @@ async function importCsvFile(filePath, driver) {
                   cpvType: $cpvType,
                   cpvDesignation: $cpvDesignation,
                   cpvValue: $cpvValue,
+                  cpvValueNormalized: $cpvValueNormalized,
                   contractPrice: $contractPrice,
                   publicationDate: $publicationDate,
                   signingDate: $signingDate,
