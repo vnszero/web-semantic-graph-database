@@ -17,11 +17,40 @@ router.get('/rank-contracted-companies-by-public-entities-count', async (req, re
     console.log('cpv: ', cpv);
 
     const query = `
+        MATCH (pe:PublicEntity)-[:HAS_LEGAL_TENDER]->(c:Contract {cpvDesignation: $cpv})
+        WITH 
+            apoc.agg.statistics(c.cpvValueNormalized) AS stats,
+            AVG(c.cpvValueNormalized) AS globalAvgCpvValueNormalized,
+            COUNT(DISTINCT c) AS globalContractsCount
+        WITH 
+            stats.stdev AS globalStdDevCpvValueNormalized,
+            globalAvgCpvValueNormalized,
+            globalContractsCount
         MATCH (pe:PublicEntity)-[:HAS_LEGAL_TENDER]->(c:Contract {cpvDesignation: $cpv})-[:ASSOCIATED_WITH]->(oc:OtherCompany)
-        WITH oc, COUNT(DISTINCT pe) AS publicEntitiesCount, COUNT(c) AS contractsCount, SUM(c.cpvValue) AS totalCpvValue
-        ORDER BY totalCpvValue DESC, contractsCount DESC, publicEntitiesCount DESC
+        WITH 
+            oc, 
+            COUNT(DISTINCT pe) AS publicEntitiesCount, 
+            COUNT(c) AS contractsCount, 
+            SUM(c.cpvValue) AS totalCpvValue, 
+            SUM(c.cpvValueNormalized) AS totalCpvValueNormalized,
+            globalAvgCpvValueNormalized,
+            globalStdDevCpvValueNormalized,
+            globalContractsCount
+        ORDER BY 
+            totalCpvValueNormalized DESC, 
+            contractsCount DESC, 
+            publicEntitiesCount DESC, 
+            totalCpvValue DESC
         LIMIT 10
-        RETURN oc.name AS otherCompanyName, apoc.number.format(totalCpvValue, '#,##0.00') AS totalCpvValueFormatted, contractsCount, publicEntitiesCount
+        RETURN 
+            oc.name AS otherCompanyName, 
+            apoc.number.format(totalCpvValueNormalized, '#,##0.00') AS totalCpvValueNormalizedFormatted, 
+            contractsCount, 
+            publicEntitiesCount,
+            apoc.number.format(totalCpvValue, '#,##0.00') AS totalCpvValueFormatted,
+            apoc.number.format(globalAvgCpvValueNormalized, '#,##0.00') AS globalAvgCpvValueNormalizedFormatted,
+            apoc.number.format(globalStdDevCpvValueNormalized, '#,##0.00') AS globalStdDevCpvValueNormalizedFormatted,
+            globalContractsCount
     `;
 
     const session = driver.session();
@@ -29,9 +58,13 @@ router.get('/rank-contracted-companies-by-public-entities-count', async (req, re
         const result = await session.run(query, { cpv });
         const responseData = result.records.map(record => ({
             otherCompanyName: record.get('otherCompanyName'),
-            totalCpvValueFormatted: record.get('totalCpvValueFormatted'),
+            totalCpvValueNormalizedFormatted: record.get('totalCpvValueNormalizedFormatted'),
             contractsCount: neo4jIntegerToNumber(record.get('contractsCount')),
             publicEntitiesCount: neo4jIntegerToNumber(record.get('publicEntitiesCount')),
+            totalCpvValueFormatted: record.get('totalCpvValueFormatted'),
+            globalAvgCpvValueNormalizedFormatted: record.get('globalAvgCpvValueNormalizedFormatted'),
+            globalStdDevCpvValueNormalizedFormatted: record.get('globalStdDevCpvValueNormalizedFormatted'),
+            globalContractsCount: neo4jIntegerToNumber(record.get('globalContractsCount')),
         }));
         res.json(responseData);
     } catch (error) {

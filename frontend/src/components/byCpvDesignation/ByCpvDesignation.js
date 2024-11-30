@@ -43,37 +43,64 @@ const ByCpvDesignation = () => {
             {loading ? (
                 <p align="center">Loading...</p>
             ) : (
-                <table border="1">
-                    <thead>
-                        <tr>
-                            <th>Company Name</th>
-                            <th>Total Cpv Value</th>
-                            <th>Contracts Count</th>
-                            <th>Public Entities Count</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {companies.length > 0 ? (
-                            companies.map((company, index) => (
-                                <tr key={index}>
-                                    <td>{company.otherCompanyName}</td>
-                                    <td>{company.totalCpvValueFormatted}</td>
-                                    <td>{company.contractsCount}</td>
-                                    <td>{company.publicEntitiesCount}</td>
-                                </tr>
-                            ))
-                        ) : (
+                <div>
+                    <h2>Top 10 Companies</h2>
+                    <table border="1">
+                        <thead>
                             <tr>
-                                <td colSpan="4">No companies found.</td>
+                                <th>Company Name</th>
+                                <th>Total Value Normalized</th>
+                                <th>Contracts Count</th>
+                                <th>Public Entities Count</th>
+                                <th>Total Value</th>
                             </tr>
-                        )}
-
-
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {companies.length > 0 ? (
+                                companies.map((company, index) => (
+                                    <tr key={index}>
+                                        <td>{company.otherCompanyName}</td>
+                                        <td>{company.totalCpvValueNormalizedFormatted}</td>
+                                        <td>{company.contractsCount}</td>
+                                        <td>{company.publicEntitiesCount}</td>
+                                        <td>{company.totalCpvValueFormatted}</td>
+                                    </tr>
+                                ))
+                            ) : (
+                                <tr>
+                                    <td colSpan="5">No companies found.</td>
+                                </tr>
+                            )}
+                        </tbody>
+                    </table>
+                    <h2>Global Statistics</h2>
+                    <p>considering all companies and not just the top 10</p>
+                    <table border="1">
+                        <thead>
+                            <tr>
+                                <th>Average Normalized Value</th>
+                                <th>Standard Deviation Normalized Value</th>
+                                <th>Total Contracts</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {companies.length > 0 ? (
+                                <tr>
+                                    <td>{companies[0].globalAvgCpvValueNormalizedFormatted}</td>
+                                    <td>{companies[0].globalStdDevCpvValueNormalizedFormatted}</td>
+                                    <td>{companies[0].globalContractsCount}</td>
+                                </tr>
+                            ) : (
+                                <tr>
+                                    <td colSpan="3">No data available.</td>
+                                </tr>
+                            )}
+                        </tbody>
+                    </table>
+                </div>
             )}
         </div>
-    );
+    );    
 };
 
 export default ByCpvDesignation;
