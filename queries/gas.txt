@@ -1,4 +1,4 @@
-MATCH (pe:PublicEntity)-[:HAS_LEGAL_TENDER]->(c:Contract {cpvDesignation: 'Electricidade'})
+MATCH (pe:PublicEntity)-[:HAS_LEGAL_TENDER]->(c:Contract {cpvDesignation: 'Gás natural'})
 WITH 
     apoc.agg.statistics(c.cpvValueNormalized) AS statsCpv,
     AVG(c.cpvValueNormalized) AS globalAvgCpvValueNormalized,
@@ -11,7 +11,7 @@ WITH
     globalCpvValueNormalized,
     globalContractsCount,
     globalPublicEntitiesCount
-MATCH (pe:PublicEntity)-[:HAS_LEGAL_TENDER]->(c:Contract {cpvDesignation: 'Electricidade'})-[:ASSOCIATED_WITH]->(oc:OtherCompany)
+MATCH (pe:PublicEntity)-[:HAS_LEGAL_TENDER]->(c:Contract {cpvDesignation: 'Gás natural'})-[:ASSOCIATED_WITH]->(oc:OtherCompany)
 WITH 
     oc,
     COUNT(DISTINCT pe) AS publicEntitiesCount, 
@@ -52,9 +52,10 @@ ORDER BY
     contractsCount DESC, 
     publicEntitiesCount DESC, 
     totalCpvValue DESC
-LIMIT 20
+LIMIT 50
 RETURN 
     otherCompanyName,
+    'Gás natural' AS cpvDesignation,
     apoc.number.format(totalCpvValueNormalized, '#,##0.00') AS totalCpvValueNormalizedFormatted, 
     contractsCount, 
     publicEntitiesCount,
@@ -65,8 +66,8 @@ RETURN
     apoc.number.format(distanceGlobalCpvValueNormalized, '#,##0.00') AS distanceGlobalCpvValueNormalizedFormatted,
     apoc.number.format(marketShareCpvValueNormalized, '0.00%') AS marketShareCpvValueNormalizedFormatted,
     
-    apoc.number.format(distanceGlobalContractsCount, '#,##0.00') AS distanceGlobalContractsCountFormatted,
+    distanceGlobalContractsCount,
     apoc.number.format(marketShareContractsCount, '0.00%') AS marketShareContractsCountFormatted,
 
-    apoc.number.format(distanceGlobalPublicEntitiesCount, '#,##0.00') AS distanceGlobalPublicEntitiesCountFormatted,
+    distanceGlobalPublicEntitiesCount,
     apoc.number.format(marketSharePublicEntitiesCount, '0.00%') AS marketSharePublicEntitiesCountFormatted

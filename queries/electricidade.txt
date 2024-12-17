@@ -1,0 +1,73 @@
+MATCH (pe:PublicEntity)-[:HAS_LEGAL_TENDER]->(c:Contract {cpvDesignation: 'Electricidade'})
+WITH 
+    apoc.agg.statistics(c.cpvValueNormalized) AS statsCpv,
+    AVG(c.cpvValueNormalized) AS globalAvgCpvValueNormalized,
+    SUM(c.cpvValueNormalized) AS globalCpvValueNormalized,
+    COUNT(DISTINCT c) AS globalContractsCount,
+    COUNT(DISTINCT pe) AS globalPublicEntitiesCount
+WITH 
+    statsCpv.stdev AS globalStdDevCpvValueNormalized,
+    globalAvgCpvValueNormalized,
+    globalCpvValueNormalized,
+    globalContractsCount,
+    globalPublicEntitiesCount
+MATCH (pe:PublicEntity)-[:HAS_LEGAL_TENDER]->(c:Contract {cpvDesignation: 'Electricidade'})-[:ASSOCIATED_WITH]->(oc:OtherCompany)
+WITH 
+    oc,
+    COUNT(DISTINCT pe) AS publicEntitiesCount, 
+    COUNT(c) AS contractsCount, 
+    SUM(c.cpvValue) AS totalCpvValue, 
+    SUM(c.cpvValueNormalized) AS totalCpvValueNormalized,
+    globalAvgCpvValueNormalized,
+    globalStdDevCpvValueNormalized,
+    globalCpvValueNormalized,
+    globalContractsCount,
+    globalPublicEntitiesCount
+// Step to calculate stats for publicEntitiesCount and contractsCount
+WITH 
+    oc.name AS otherCompanyName,
+    publicEntitiesCount,
+    contractsCount,
+    totalCpvValueNormalized,
+    totalCpvValue,
+    globalAvgCpvValueNormalized,
+    globalStdDevCpvValueNormalized,
+    globalCpvValueNormalized,
+    globalContractsCount,
+    globalPublicEntitiesCount,
+
+    // Calculations
+    (globalAvgCpvValueNormalized - totalCpvValueNormalized) AS distanceAvgCpvValueNormalized,
+    (globalStdDevCpvValueNormalized - (globalAvgCpvValueNormalized - totalCpvValueNormalized)) AS distanceStdCpvValueNormalized,
+    (globalCpvValueNormalized - totalCpvValueNormalized) AS distanceGlobalCpvValueNormalized,
+    (totalCpvValueNormalized / globalCpvValueNormalized) AS marketShareCpvValueNormalized,
+
+    (globalContractsCount - contractsCount) AS distanceGlobalContractsCount,
+    (contractsCount * 1.0 / globalContractsCount) AS marketShareContractsCount,
+    
+    (globalPublicEntitiesCount - publicEntitiesCount) AS distanceGlobalPublicEntitiesCount,
+    (publicEntitiesCount * 1.0 / globalPublicEntitiesCount) AS marketSharePublicEntitiesCount
+ORDER BY 
+    totalCpvValueNormalized DESC, 
+    contractsCount DESC, 
+    publicEntitiesCount DESC, 
+    totalCpvValue DESC
+LIMIT 50
+RETURN 
+    otherCompanyName,
+    'Electricidade' AS cpvDesignation,
+    apoc.number.format(totalCpvValueNormalized, '#,##0.00') AS totalCpvValueNormalizedFormatted, 
+    contractsCount, 
+    publicEntitiesCount,
+    apoc.number.format(totalCpvValue, '#,##0.00') AS totalCpvValueFormatted,
+
+    apoc.number.format(distanceAvgCpvValueNormalized, '#,##0.00') AS distanceAvgCpvValueNormalizedFormatted,
+    apoc.number.format(distanceStdCpvValueNormalized, '#,##0.00') AS distanceStdCpvValueNormalizedFormatted,
+    apoc.number.format(distanceGlobalCpvValueNormalized, '#,##0.00') AS distanceGlobalCpvValueNormalizedFormatted,
+    apoc.number.format(marketShareCpvValueNormalized, '0.00%') AS marketShareCpvValueNormalizedFormatted,
+    
+    distanceGlobalContractsCount,
+    apoc.number.format(marketShareContractsCount, '0.00%') AS marketShareContractsCountFormatted,
+
+    distanceGlobalPublicEntitiesCount,
+    apoc.number.format(marketSharePublicEntitiesCount, '0.00%') AS marketSharePublicEntitiesCountFormatted
