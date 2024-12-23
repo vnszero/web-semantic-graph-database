@@ -1,0 +1,338 @@
+﻿[
+  {
+    "cpvDesignation": "Produtos farmacêuticos",
+    "contractCount": 6815,
+    "totalOtherCompanies": 173,
+    "totalPublicEntities": 39
+  },
+  {
+    "cpvDesignation": "Equipamento médico",
+    "contractCount": 840,
+    "totalOtherCompanies": 165,
+    "totalPublicEntities": 39
+  },
+  {
+    "cpvDesignation": "Equipamento médico, medicamentos e produtos para cuidados pessoais",
+    "contractCount": 695,
+    "totalOtherCompanies": 142,
+    "totalPublicEntities": 34
+  },
+  {
+    "cpvDesignation": "Material médico de consumo",
+    "contractCount": 670,
+    "totalOtherCompanies": 129,
+    "totalPublicEntities": 36
+  },
+  {
+    "cpvDesignation": "Medicamentos vários",
+    "contractCount": 474,
+    "totalOtherCompanies": 62,
+    "totalPublicEntities": 32
+  },
+  {
+    "cpvDesignation": "Reagentes de laboratório",
+    "contractCount": 382,
+    "totalOtherCompanies": 35,
+    "totalPublicEntities": 32
+  },
+  {
+    "cpvDesignation": "Serviços de saúde",
+    "contractCount": 319,
+    "totalOtherCompanies": 118,
+    "totalPublicEntities": 31
+  },
+  {
+    "cpvDesignation": "Reagentes e meios de contraste",
+    "contractCount": 291,
+    "totalOtherCompanies": 42,
+    "totalPublicEntities": 27
+  },
+  {
+    "cpvDesignation": "Produtos farmacêuticos - Medicamentos",
+    "contractCount": 258,
+    "totalOtherCompanies": 40,
+    "totalPublicEntities": 5
+  },
+  {
+    "cpvDesignation": "Serviços de limpeza",
+    "contractCount": 227,
+    "totalOtherCompanies": 28,
+    "totalPublicEntities": 32
+  },
+  {
+    "cpvDesignation": "Serviços relacionados com a informática",
+    "contractCount": 158,
+    "totalOtherCompanies": 42,
+    "totalPublicEntities": 24
+  },
+  {
+    "cpvDesignation": "Serviços de segurança",
+    "contractCount": 157,
+    "totalOtherCompanies": 22,
+    "totalPublicEntities": 35
+  },
+  {
+    "cpvDesignation": "Serviços de imagiologia médica",
+    "contractCount": 136,
+    "totalOtherCompanies": 37,
+    "totalPublicEntities": 30
+  },
+  {
+    "cpvDesignation": "Electricidade",
+    "contractCount": 136,
+    "totalOtherCompanies": 7,
+    "totalPublicEntities": 36
+  },
+  {
+    "cpvDesignation": "Reagentes para análises ao sangue",
+    "contractCount": 122,
+    "totalOtherCompanies": 25,
+    "totalPublicEntities": 11
+  },
+  {
+    "cpvDesignation": "Gás natural",
+    "contractCount": 115,
+    "totalOtherCompanies": 6,
+    "totalPublicEntities": 32
+  },
+  {
+    "cpvDesignation": "Obras de construção de edifícios relacionados com serviços de saúde",
+    "contractCount": 112,
+    "totalOtherCompanies": 53,
+    "totalPublicEntities": 14
+  },
+  {
+    "cpvDesignation": "Serviços de ambulâncias",
+    "contractCount": 102,
+    "totalOtherCompanies": 32,
+    "totalPublicEntities": 15
+  },
+  {
+    "cpvDesignation": "Serviços de reparação e manutenção",
+    "contractCount": 98,
+    "totalOtherCompanies": 34,
+    "totalPublicEntities": 23
+  },
+  {
+    "cpvDesignation": "Próteses ortopédicas",
+    "contractCount": 98,
+    "totalOtherCompanies": 12,
+    "totalPublicEntities": 16
+  },
+  {
+    "cpvDesignation": "Serviços de confecção de refeições",
+    "contractCount": 88,
+    "totalOtherCompanies": 6,
+    "totalPublicEntities": 16
+  },
+  {
+    "cpvDesignation": "Serviços de seguros",
+    "contractCount": 87,
+    "totalOtherCompanies": 14,
+    "totalPublicEntities": 25
+  },
+  {
+    "cpvDesignation": "Obras de construção total ou parcial e de engenharia civil",
+    "contractCount": 84,
+    "totalOtherCompanies": 50,
+    "totalPublicEntities": 18
+  },
+  {
+    "cpvDesignation": "Serviços de seguros de acidentes",
+    "contractCount": 84,
+    "totalOtherCompanies": 13,
+    "totalPublicEntities": 23
+  },
+  {
+    "cpvDesignation": "Antineoplásicos e imunomoduladores",
+    "contractCount": 80,
+    "totalOtherCompanies": 24,
+    "totalPublicEntities": 7
+  },
+  {
+    "cpvDesignation": "Serviços de vigilância",
+    "contractCount": 75,
+    "totalOtherCompanies": 18,
+    "totalPublicEntities": 26
+  },
+  {
+    "cpvDesignation": "Material de assistência ortopédica",
+    "contractCount": 67,
+    "totalOtherCompanies": 17,
+    "totalPublicEntities": 10
+  },
+  {
+    "cpvDesignation": "Medicamentos vários - Para fins terapêuticos",
+    "contractCount": 64,
+    "totalOtherCompanies": 18,
+    "totalPublicEntities": 1
+  },
+  {
+    "cpvDesignation": "Serviços de reparação e manutenção de equipamento médico e de precisão",
+    "contractCount": 62,
+    "totalOtherCompanies": 17,
+    "totalPublicEntities": 19
+  },
+  {
+    "cpvDesignation": "Produtos para fins clínicos",
+    "contractCount": 62,
+    "totalOtherCompanies": 38,
+    "totalPublicEntities": 2
+  },
+  {
+    "cpvDesignation": "Serviços de cantinas e de fornecimento de refeições (catering)",
+    "contractCount": 59,
+    "totalOtherCompanies": 6,
+    "totalPublicEntities": 11
+  },
+  {
+    "cpvDesignation": "Vacinas antigripe",
+    "contractCount": 57,
+    "totalOtherCompanies": 4,
+    "totalPublicEntities": 18
+  },
+  {
+    "cpvDesignation": "Equipamento e material informático",
+    "contractCount": 54,
+    "totalOtherCompanies": 26,
+    "totalPublicEntities": 25
+  },
+  {
+    "cpvDesignation": "Serviços de saúde e acção social",
+    "contractCount": 49,
+    "totalOtherCompanies": 34,
+    "totalPublicEntities": 14
+  },
+  {
+    "cpvDesignation": "Serviços de reparação e manutenção de equipamento médico",
+    "contractCount": 48,
+    "totalOtherCompanies": 14,
+    "totalPublicEntities": 17
+  },
+  {
+    "cpvDesignation": "Serviços de fornecimento de pessoal médico",
+    "contractCount": 44,
+    "totalOtherCompanies": 14,
+    "totalPublicEntities": 7
+  },
+  {
+    "cpvDesignation": "Implantes ortopédicos",
+    "contractCount": 44,
+    "totalOtherCompanies": 11,
+    "totalPublicEntities": 11
+  },
+  {
+    "cpvDesignation": "Serviços de hotelaria",
+    "contractCount": 40,
+    "totalOtherCompanies": 8,
+    "totalPublicEntities": 11
+  },
+  {
+    "cpvDesignation": "Próteses",
+    "contractCount": 40,
+    "totalOtherCompanies": 9,
+    "totalPublicEntities": 11
+  },
+  {
+    "cpvDesignation": "Lentes intraoculares",
+    "contractCount": 40,
+    "totalOtherCompanies": 8,
+    "totalPublicEntities": 15
+  },
+  {
+    "cpvDesignation": "Serviços de assistência técnica",
+    "contractCount": 40,
+    "totalOtherCompanies": 20,
+    "totalPublicEntities": 9
+  },
+  {
+    "cpvDesignation": "Serviços de saúde diversos",
+    "contractCount": 39,
+    "totalOtherCompanies": 16,
+    "totalPublicEntities": 10
+  },
+  {
+    "cpvDesignation": "Construção",
+    "contractCount": 39,
+    "totalOtherCompanies": 34,
+    "totalPublicEntities": 17
+  },
+  {
+    "cpvDesignation": "Serviços de consultoria e de programação de software",
+    "contractCount": 39,
+    "totalOtherCompanies": 27,
+    "totalPublicEntities": 14
+  },
+  {
+    "cpvDesignation": "Serviços de reparação e manutenção diversos",
+    "contractCount": 38,
+    "totalOtherCompanies": 22,
+    "totalPublicEntities": 12
+  },
+  {
+    "cpvDesignation": "Dispositivos e produtos médicos variados",
+    "contractCount": 36,
+    "totalOtherCompanies": 24,
+    "totalPublicEntities": 12
+  },
+  {
+    "cpvDesignation": "Anti-infecciosos gerais de uso sistémico, vacinas, antineoplásicos e imunomoduladores",
+    "contractCount": 36,
+    "totalOtherCompanies": 16,
+    "totalPublicEntities": 5
+  },
+  {
+    "cpvDesignation": "Obras de reestruturação",
+    "contractCount": 36,
+    "totalOtherCompanies": 28,
+    "totalPublicEntities": 11
+  },
+  {
+    "cpvDesignation": "Serviços de hotelaria, restauração e comércio a retalho",
+    "contractCount": 35,
+    "totalOtherCompanies": 6,
+    "totalPublicEntities": 15
+  },
+  {
+    "cpvDesignation": "Serviços de TI: consultoria, desenvolvimento de software, Internet e apoio",
+    "contractCount": 35,
+    "totalOtherCompanies": 22,
+    "totalPublicEntities": 12
+  },
+  {
+    "cpvDesignation": "Material cirúrgico",
+    "contractCount": 35,
+    "totalOtherCompanies": 18,
+    "totalPublicEntities": 16
+  },
+  {
+    "cpvDesignation": "Aparelhos para radiologia",
+    "contractCount": 35,
+    "totalOtherCompanies": 10,
+    "totalPublicEntities": 14
+  },
+  {
+    "cpvDesignation": "Medicamentos para o sangue, para os órgãos hematopoiéticos e para o aparelho cardiovascular",
+    "contractCount": 33,
+    "totalOtherCompanies": 8,
+    "totalPublicEntities": 9
+  },
+  {
+    "cpvDesignation": "Serviços prestados por laboratórios médicos",
+    "contractCount": 33,
+    "totalOtherCompanies": 17,
+    "totalPublicEntities": 11
+  },
+  {
+    "cpvDesignation": "Medicamentos vários - Para uso hospitalar",
+    "contractCount": 33,
+    "totalOtherCompanies": 15,
+    "totalPublicEntities": 1
+  },
+  {
+    "cpvDesignation": "Serviços relativos a águas residuais, resíduos, limpeza e ambiente",
+    "contractCount": 31,
+    "totalOtherCompanies": 16,
+    "totalPublicEntities": 9
+  }
+]

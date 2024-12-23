@@ -4,7 +4,7 @@ const neo4j = require('neo4j-driver');
 const express = require('express');
 const cors = require('cors');
 const startApi = require('./api');
-const { importAllCsvFiles } = require('./importCsv');
+const { importAllCsvFiles } = require('./feed-neo4j-database');
 
 // Connect to Neo4j
 const driver = neo4j.driver(
@@ -29,6 +29,6 @@ app.listen(port, () => {
 
   // Only import CSV files if needed (e.g., skip if data is already in Neo4j)
   /////////////////// Comment line 32 after the first run ///////////////////
-  // importAllCsvFiles(driver).catch(console.error);
+  importAllCsvFiles(driver).catch(console.error);
   /////////////////// Comment line 32 after the first run ///////////////////
 });

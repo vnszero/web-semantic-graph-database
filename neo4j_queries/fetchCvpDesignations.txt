@@ -1,0 +1,29 @@
+MATCH (pe:PublicEntity)-[:HAS_LEGAL_TENDER]->(c:Contract {cpvDesignation: $cpvDesignation})
+WITH 
+    apoc.agg.statistics(c.cpvValueNormalized) AS statsCpv, 
+MATCH (pe:PublicEntity)-[:HAS_LEGAL_TENDER]->(c:Contract {cpvDesignation: $cpvDesignation})-[:ASSOCIATED_WITH]->(oc:OtherCompany)
+WITH 
+    oc,
+    COUNT(DISTINCT pe) AS publicEntitiesCount, 
+    COUNT(c) AS contractsCount, 
+    SUM(c.cpvValue) AS totalCpvValue, 
+    SUM(c.cpvValueNormalized) AS totalCpvValueNormalized,
+// Step to calculate stats for publicEntitiesCount and contractsCount
+WITH 
+    oc.name AS otherCompanyName,
+    publicEntitiesCount,
+    contractsCount,
+    totalCpvValueNormalized,
+    totalCpvValue,
+ORDER BY 
+    totalCpvValueNormalized DESC, 
+    contractsCount DESC, 
+    publicEntitiesCount DESC, 
+    totalCpvValue DESC
+RETURN 
+    otherCompanyName,
+    $cpvDesignation AS cpvDesignation,
+    apoc.number.format(totalCpvValueNormalized, '#,##0.00') AS totalCpvValueNormalizedFormatted, 
+    contractsCount, 
+    publicEntitiesCount,
+    apoc.number.format(totalCpvValue, '#,##0.00') AS totalCpvValueFormatted

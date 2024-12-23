@@ -53,13 +53,13 @@ async function importCsvFile(filePath, driver) {
             const executionPeriodNumber = parseInt(params.executionPeriod.match(/\d+/)?.[0] || '0', 10);
 
             if (executionPeriodNumber > 0) {
-                // Normalize the cpvValue by executionPeriod
-                params['cpvValueNormalized'] = parseFloat(
-                  (params['cpvValue'] / executionPeriodNumber).toFixed(2)
-                );
+              // Normalize the cpvValue by executionPeriod
+              params['cpvValueNormalized'] = parseFloat(
+                (params['cpvValue'] / executionPeriodNumber).toFixed(2)
+              );
             } else {
-                console.warn(`Invalid execution period for row: ${JSON.stringify(row)}`);
-                params['cpvValueNormalized'] = params['cpvValue']; // it means that execution period does not matter
+              console.warn(`Invalid execution period for row: ${JSON.stringify(row)}`);
+              params['cpvValueNormalized'] = params['cpvValue']; // it means that execution period does not matter
             }
 
             await session.writeTransaction(async (tx) => {
@@ -144,11 +144,11 @@ async function importCsvFile(filePath, driver) {
 
 // Function to import all CSV files from health folder
 async function importAllCsvFiles(driver) {
-  const folderPath = path.join(__dirname, 'contracts/health');
+  const folderPath = '../data/input/contracts';
+  console.log(`Importing all CSV files from folder: ${folderPath}`);
   const files = fs.readdirSync(folderPath).filter((file) => file.endsWith('.csv'));
-
+  console.log(`Found ${files.length} CSV files in folder: ${folderPath}`);
   for (const file of files) {
-    console.log(`Start file import: ${file}`);
     await importCsvFile(path.join(folderPath, file), driver);
   }
 

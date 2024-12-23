@@ -1,4 +1,3 @@
-\node_modules
-
-input.html
-output.csv
+node_modules/
+data/output/
+volumes/
